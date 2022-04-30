@@ -1,0 +1,293 @@
+#+TITLE: My Qtile Config
+#+PROPERTY: header-args :tangle config.py
+* TABLE OF CONTENTS :toc:
+- [[#imports][Imports]]
+- [[#setting-custom-values][Setting custom values]]
+- [[#keybinds][Keybinds]]
+- [[#groups][Groups]]
+- [[#layout][Layout]]
+- [[#widgets][Widgets]]
+  - [[#widget-fonts-and-colors][Widget Fonts and Colors]]
+  - [[#screens][Screens]]
+- [[#other-settings][Other settings]]
+- [[#autostart][Autostart]]
+
+* Imports
+  Importing python libraries for the proper functioning of qtile
+ #+begin_src python
+import os
+import subprocess
+
+from typing import List  # noqa: F401
+
+from libqtile import bar, layout, widget, hook
+from libqtile.config import Click, Drag, Group, Key, Match, Screen
+from libqtile.lazy import lazy
+
+from libqtile.widget.groupbox import GroupBox
+from libqtile.widget.currentlayout import CurrentLayout
+from libqtile.widget.windowname import WindowName
+from libqtile.widget.textbox import TextBox 
+from libqtile.widget.cpu import CPU
+from libqtile.widget.memory import Memory
+from libqtile.widget.net import Net
+from libqtile.widget.volume import Volume
+from libqtile.widget.systray import Systray
+from libqtile.widget.battery import Battery
+from libqtile.widget.clock import Clock
+from libqtile.widget.sep import Sep
+from libqtile.widget.spacer import Spacer
+ #+end_src
+
+* Setting custom values
+  Setting the mod key and my terminal of choice, kitty
+#+begin_src python
+mod = "mod4"
+terminal = "kitty"
+#+end_src
+
+* Keybinds
+  Setting general keybinds to open applications, change layouts and such
+  #+begin_src python
+keys = [
+    Key([mod, "shift"], "n", lazy.spawn("obsidian"),),
+    Key([mod,], "i", lazy.spawn("nitrogen"),),
+    Key([mod], "w", lazy.spawn("firefox"),),
+    # Key([mod, "shift"], "Return", lazy.spawn("/home/maanav/.config/rofi/launchers/ribbon/launcher.sh"),),
+    Key([mod, "shift"], "Return", lazy.spawn("rofi -show drun"),),
+    Key([mod, "shift"], "m", lazy.spawn("/home/maanav/Rofi-Beats/rofi-beats"),),
+    Key([mod, "shift"], "p", lazy.spawn("/home/maanav/.config/rofi/applets/menu/powermenu.sh"),),
+    Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
+    Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
+    Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
+    Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
+    Key([mod], "space", lazy.layout.next(), desc="Move window focus to other window"),
+    Key([mod, "shift"], "h", lazy.layout.shuffle_left(), desc="Move window to the left"),
+    Key([mod, "shift"], "l", lazy.layout.shuffle_right(), desc="Move window to the right"),
+    Key([mod, "shift"], "j", lazy.layout.shuffle_down(), desc="Move window down"),
+    Key([mod, "shift"], "k", lazy.layout.shuffle_up(), desc="Move window up"),
+    Key([mod, "control"], "h", lazy.layout.grow_left(), desc="Grow window to the left"),
+    Key([mod, "control"], "l", lazy.layout.grow_right(), desc="Grow window to the right"),
+    Key([mod, "control"], "j", lazy.layout.grow_down(), desc="Grow window down"),
+    Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow window up"),
+    Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
+    Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
+    Key([mod], "space", lazy.next_layout()),
+    Key([mod], "q", lazy.window.kill(),),
+    Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
+    Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
+]
+#+end_src
+
+* Groups
+#+begin_src python
+groups = []
+
+group_names = ["1", "2", "3", "4", "5", "6", ]
+group_labels = ["", "", "ﴬ", "", "", "", ]
+group_layouts = ["monadtall", "matrix", "monadtall", "bsp", "monadtall", "matrix", "monadtall", "bsp", "monadtall", "monadtall",]
+
+for i in range(len(group_names)):
+    groups.append(
+        Group(
+            name=group_names[i],
+            layout=group_layouts[i].lower(),
+            label=group_labels[i],
+        ))
+
+for i in groups:
+    keys.extend([
+        Key([mod], i.name, lazy.group[i.name].toscreen()),
+        Key([mod], "Tab", lazy.screen.next_group()),
+        Key([mod, "shift" ], "Tab", lazy.screen.prev_group()),
+        Key(["mod1"], "Tab", lazy.screen.next_group()),
+        Key(["mod1", "shift"], "Tab", lazy.screen.prev_group()),
+        Key([mod, "shift"], i.name, lazy.window.togroup(i.name)),
+        Key([mod, "shift"], i.name, lazy.window.togroup(i.name) , lazy.group[i.name].toscreen()),
+    ])
+#+end_src
+
+* Layout
+  Setting layouts and settings for layouts
+  
+#+begin_src python
+def init_layout_theme():
+    return {"margin":12,
+            "border_width":3,
+            "border_focus": "#83a586",
+            "border_normal": "#6E6C7E"
+            }
+
+layout_theme = init_layout_theme()
+
+
+layouts = [
+    layout.MonadTall(margin=12, border_width=3, border_focus="#83a586", border_normal="#6E6C7E"),
+    layout.MonadWide(margin=12, border_width=3, border_focus="#83a586", border_normal="#6E6C7E"),
+    layout.Matrix(**layout_theme),
+    layout.Bsp(**layout_theme),
+    layout.Floating(**layout_theme),
+    layout.RatioTile(**layout_theme),
+    layout.Max(**layout_theme)
+]
+#+end_src
+
+* Widgets
+** Widget Fonts and Colors
+   Setting colors for widgets and bar and the font
+ #+begin_src python
+widget_defaults = dict(
+    font='Iosevka Nerd Font',
+    fontsize=9,
+    padding=3,
+)
+
+extension_defaults = widget_defaults.copy()
+
+def init_colors():
+    return [["#fbf1c7", "#fbf1c7"], # color 0
+            ["#3c3836", "#3c3836"], # color 1
+            ["#282828", "#282828"], # color 2
+            ["#928374", "#928374"], # color 3
+            ["#a89984", "#a89984"], # color 4
+            ["#98971a", "#98971a"], # color 5
+            ["#83a598", "#83a598"], # color 6
+            ["#ebdbb2", "#ebdbb2"], # color 7
+            ["#8ec07c", "#8ec07c"], # color 8
+            ["#d3869b", "#d3869b"], # color 9
+            ["#fb4934", "#fb4934"], # color 10
+            ["#F2CDCD", "#F2CDCD"], # color 11
+            ["#689b6a", "#689b6a"], # color 12
+            ["#F5C2E7", "#F5C2E7"], # color 13
+            ["#E8A2AF", "#E8A2AF"], # color 14
+            ["#F28FAD", "#F28FAD"], # color 15
+            ["#F8BD96", "#F8BD96"], # color 16
+            ["#FAE3B0", "#FAE3B0"], # color 17
+            ["#ABE9B3", "#ABE9B3"], # color 18
+            ["#B5E8E0", "#B5E8E0"], # color 19
+            ["#96CDFB", "#96CDFB"], # color 20
+            ["#89DCEB", "#89DCEB"]] # color 21
+
+colors = init_colors()
+#+end_src
+** Screens
+   #+begin_src python
+screens = [
+    Screen(
+        top=bar.Bar(
+            [
+                Spacer(length=10),
+                 widget.CurrentLayout(
+                    foreground=colors[3],
+                    fmt='[ {} ]'
+                    ),
+                Spacer(length=10),
+                GroupBox(
+                    disable_drag=True,
+                    active=colors[1],
+                    inactive=colors[4],
+                    highlight_method='text',
+                    fontsize=12,
+                    this_current_screen_border=colors[0],
+                    padding=5,
+                    ),
+                Spacer(length=10),
+               Volume(
+                   foreground=colors[4],
+                   fmt='[ 墳 {} ]'
+                   ),
+               widget.WindowTabs(
+                    fmt=" -> {} ",
+				    foreground=colors[7],
+				    empty_group_string="Desktop",
+				    max_chars=130,
+				),
+                Spacer(length=10),
+                CPU(
+                    format='[ ﬙ {load_percent}% ]',
+                    foreground=colors[8],
+                    ),
+                Spacer(length=10),
+                widget.ThermalSensor(
+                        threshold=90,
+                        foreground=colors[10],
+                        fmt="[  {} ]",
+                        ),
+                Spacer(length=10),
+                Memory(
+                    format='[  {MemUsed: .0f}{mm} ]',
+                    foreground=colors[9]),
+                Spacer(length=10),
+                widget.Net(
+                    foreground=colors[12],
+                    fmt = "[  {} ]",
+                    ),
+                Spacer(length=10),
+                Clock(
+                    foreground=colors[6],
+                    format='[  %Y/%m/%d %a %I:%M %p ]'),
+                Spacer(length=10),
+                Battery(
+                        foreground=colors[5],
+                        format='[  {percent:2.0%} ]'
+                        ),
+                Spacer(length=10),
+                Systray(
+                    padding=2,
+                    background=colors[2],
+                ),
+            ],
+            background=colors[2],
+            size=35,
+        ),
+    ),
+]
+#+end_src
+
+* Other settings
+  These contains the settings for the mouse, setting rules for floating windows
+#+begin_src python
+mouse = [
+    Drag([mod], "Button1", lazy.window.set_position_floating(), start=lazy.window.get_position()),
+    Drag([mod], "Button3", lazy.window.set_size_floating(), start=lazy.window.get_size()),
+    Click([mod], "Button2", lazy.window.bring_to_front()),
+]
+#+end_src
+
+#+begin_src python
+dgroups_key_binder = None
+dgroups_app_rules = []  # type: List
+follow_mouse_focus = True
+bring_front_click = False
+cursor_warp = False
+floating_layout = layout.Floating(
+        float_rules=[
+        *layout.Floating.default_float_rules,
+        Match(wm_class='confirmreset'),  # gitk
+        Match(wm_class='makebranch'),  # gitk
+        Match(wm_class='maketag'),  # gitk
+        Match(wm_class='ssh-askpass'),  # ssh-askpass
+        Match(title='branchdialog'),  # gitk
+        Match(title='pinentry'),  # GPG key password entry
+        Match(wm_class="pavucontrol"),
+        Match(wm_class="zoom"),
+        Match(wm_class="bitwarden"),
+        Match(wm_class="kdenlive"),
+    ])
+#+end_src
+
+#+begin_src python
+auto_fullscreen = True
+focus_on_window_activation = "smart"
+reconfigure_screens = True
+auto_minimize = True
+wmname = "LG3D"
+#+end_src
+
+* Autostart
+#+begin_src python
+@hook.subscribe.startup_once
+def start_once():
+    home = os.path.expanduser('~')
+    subprocess.call([home + '/.config/qtile/autostart.sh'])
+#+end_src

@@ -1,0 +1,87 @@
+super + shift + e
+    rofi -show emoji -modi emoji
+
+
+#Pavucontrol
+super + v
+    pavucontrol
+
+#Xkill
+super + Escape
+    xkill
+
+
+#File-Manager
+ctrl + alt + f
+	thunar
+
+
+#reload sxhkd:
+super + shift + s
+	pkill -USR1 -x sxhkd
+
+
+#Pamac-manager
+ctrl + alt + p
+    pamac-manager
+
+#Xfce4-settings-manager
+ctrl + alt + m
+     xfce4-settings-manager
+
+#Pulse Audio Control
+ctrl + alt + u
+     pavucontrol
+
+#Rofi theme selector
+ctrl + alt + r
+  rofi-theme-selector
+
+#Xfce4-appfinder
+ctrl + alt + a
+    xfce4-appfinder
+
+#Gnome-Screenshot
+ctrl + alt + s
+     gnome-screenshot -i
+
+#Raises volume
+XF86AudioRaiseVolume
+    amixer set Master 10%+
+
+#Lowers volume
+XF86AudioLowerVolume
+    amixer set Master 10%-
+
+#Mute
+XF86AudioMute
+    amixer -D pulse set Master 1+ toggle
+
+#PLAY
+XF86AudioPlay
+    playerctl play-pause
+
+#Next
+XF86AudioNext
+    playerctl next
+
+#previous
+XF86AudioPrev
+    playerctl previous
+
+#Stop
+XF86AudioStop
+    playerctl stop
+
+#Brightness up
+XF86MonBrightnessUp
+brillo -q -A 10
+
+#Brightness down
+XF86MonBrightnessDown
+brillo -q -U 10
+
+#Picom Toggle
+ctrl + alt + o
+    ~/.config/qtile/scripts/picom-toggle.sh
+
