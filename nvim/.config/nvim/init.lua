@@ -1,0 +1,10 @@
+require 'settings'
+require 'plugins'
+require 'plugins.nvim-tree'
+require 'plugins.lualine'
+require 'plugins.bufferline'
+require 'colors.catppuccin'
+require 'mappings'
+require 'lsp'
+require 'lsp.cmp'
+require'colorizer'.setup()
