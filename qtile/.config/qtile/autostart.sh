@@ -2,6 +2,6 @@
 
 nitrogen --restore &
 nm-applet &
-pasystray &
 blueberry-daemon &
 lxsession &
+picom --experimental-backends -b &

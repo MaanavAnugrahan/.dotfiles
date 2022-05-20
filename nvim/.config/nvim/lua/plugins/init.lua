@@ -1,5 +1,17 @@
 return require('packer').startup(function()
+use 'sainnhe/gruvbox-material'
 use 'renerocksai/telekasten.nvim'
+-- Lua
+use {
+  "folke/which-key.nvim",
+  config = function()
+    require("which-key").setup {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+    }
+  end
+}
 use 'lervag/vimtex'
 use 'norcalli/nvim-colorizer.lua'
 use 'renerocksai/calendar-vim'
@@ -47,4 +59,5 @@ use "williamboman/nvim-lsp-installer"
         require'alpha'.setup(require'alpha.themes.dashboard'.config)
     end
 }
+use 'tpope/vim-commentary'
 end)

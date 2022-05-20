@@ -27,9 +27,27 @@ keys = [
     # The essential hotkeys
       Key(
         [mod],
+        "z",
+        lazy.spawn("zathura"),
+        desc="Zathura -a pdf viewer",
+    ),
+      Key(
+        [mod],
+        "x",
+        lazy.spawn("archlinux-logout"),
+        desc="Logout menu",
+    ),
+      Key(
+        [mod],
         "e",
-        lazy.spawn("rofi -show drun"),
+        lazy.spawn("/home/maanav/.config/rofi/launchers/ribbon/launcher.sh"),
         desc="Rofi app launcher",
+    ),
+      Key(
+        [mod],
+        "w",
+        lazy.spawn("brave"),
+        desc="Brave - the web browser",
     ),
       Key(
         [mod],
@@ -96,6 +114,7 @@ workspaces = [
         "key": "5",
         "matches": [
             Match(wm_class="joplin"),
+            Match(wm_class="zathura"),
             Match(wm_class="libreoffice"),
             Match(wm_class="evince"),
         ],
@@ -172,49 +191,48 @@ for workspace in workspaces:
     )
 
 colors = [
-    ["#302D41", "#302D41"],  # 0 background
-    ["#C3BAC6", "#C3BAC6"],  # 1 foreground
-    ["#6E6C7E", "#6E6C7E"],  # 2 background lighter
-    ["#F28FAD", "#F28FAD"],  # 3 red
-    ["#ABE9B3", "#ABE9B3"],  # 4 green
-    ["#FAE3B0", "#FAE3B0"],  # 5 yellow
-    ["#96CDFB", "#96CDFB"],  # 6 blue
-    ["#DDB6F2", "#DDB6F2"],  # 7 magenta
+    ["#282828", "#282828"],  # 0 background
+    ["#ebdbb2", "#ebdbb2"],  # 1 foreground
+    ["#3c3826", "#3c2826"],  # 2 background lighter
+    ["#cc241d", "#cc241d"],  # 3 red
+    ["#98971a", "#98971a"],  # 4 green
+    ["#d79921", "#d79921"],  # 5 yellow
+    ["#83a598", "#83a598"],  # 6 blue
+    ["#b16286", "#b16286"],  # 7 magenta
     ["#B5E8E0", "#B5E8E0"],  # 8 cyan
     ["#D9E0EE", "#D9E0EE"],  # 9 white
     ["#6E6C7E", "#6E6C7E"],  # 10 grey
-    ["#E8A2AF", "#E8A2AF"],  # 11 orange
-    ["#B5E8E0", "#B5E8E0"],  # 12 super cyan
-    ["#89DCEB", "#89DCEB"],  # 13 super blue
+    ["#d65d0e", "#d65d0e"],  # 11 orange
+    ["#689d6a", "#689d6a"],  # 12 super cyan
+    ["#458588", "#458588"],  # 13 super blue
     ["#1A1826", "#1A1826"],  # 14 super dark background
 ]
 
 group_box_settings = {
     "padding": 5,
     "borderwidth": 4,
-    "active": colors[9],
+    "active": colors[1],
     "inactive": colors[10],
     "disable_drag": True,
     "rounded": True,
     "highlight_color": colors[2],
-    "block_highlight_text_color": colors[6],
+    "block_highlight_text_color": colors[7],
     "highlight_method": "block",
-    "this_current_screen_border": colors[14],
+    "this_current_screen_border": colors[0],
     "this_screen_border": colors[7],
-    "other_current_screen_border": colors[14],
-    "other_screen_border": colors[14],
+    "other_current_screen_border": colors[0],
+    "other_screen_border": colors[0],
     "foreground": colors[1],
-    "background": colors[0],
     "urgent_border": colors[3],
 }
 
                                          # Layouts
 layout_theme = {
     "border_width": 3,
-    "margin": 12,
-    "border_focus": "302D41",
-    "border_normal": "DDB6F2",
-    "font": "Hurmit Nerd Font",
+    "margin": 14,
+    "border_focus": "#b16286",
+    "border_normal": "#282828",
+    "font": "Iosevka Nerd Font",
     "grow_amount": 2,
 }
 
@@ -247,22 +265,16 @@ layouts = [
 
 
 widget_defaults = dict(
-    font="Hurmit Nerd Font",
+    font="Iosevka Nerd Font",
     fontsize=9,
     padding=3,
-    background=colors[14],
-    decorations=[
-        BorderDecoration(
-            colour=colors[14],
-            border_width=[11, 0, 10, 0],
-        )
-    ],
+    background=colors[0],
 )
 extension_defaults = widget_defaults.copy()
 
 screens = [
     Screen(
-        top=bar.Bar(
+       top=bar.Bar(
             [
                 widget.Sep(
                     linewidth=0,
@@ -270,202 +282,126 @@ screens = [
                     padding=10,
                     size_percent=50,
                 ),
-                widget.TextBox(
-                    text="",
-                    foreground=colors[0],
-                    background=colors[14],
-                    fontsize=14,
-                    padding=0,
+                widget.CurrentLayoutIcon(
+                    custom_icon_paths=[os.path.expanduser("~/.config/qtile/icons")],
+                    scale=0.5,
+                    padding=-10,
+                    foreground=colors[7]),
+                widget.Sep(
+                    linewidth=0,
+                    foreground=colors[2],
+                    padding=10,
+                    size_percent=50,
                 ),
                 widget.GroupBox(
                     font="Font Awesome 6 Free",
                     fontsize=13,
                     **group_box_settings,
                     ),
-                widget.TextBox(
-                    text="",
-                    foreground=colors[0],
-                    background=colors[14],
-                    fontsize=14,
-                    padding=0,
-                ),
                 widget.Sep(
-                    linewidth=0,
-                    foreground=colors[2],
+                    linewidth=2,
+                    foreground=colors[0],
                     padding=10,
                     size_percent=50,
                 ),
                 widget.TextBox(
-                    text="",
-                    foreground=colors[0],
-                    background=colors[14],
-                    fontsize=14,
-                    padding=0,
-                ),
-                widget.TextBox(
-                    text="类",
-                    font="Font Awesome 6 Free",
-                    fontsize=13,
-                    foreground=colors[7],
-                    background=colors[0],
-                    ),
-                widget.CurrentLayout(
-                    foreground=colors[7],
-                    background=colors[0],
-                    ),
-                widget.TextBox(
-                    text="",
-                    foreground=colors[0],
-                    background=colors[14],
-                    fontsize=14,
-                    padding=0,
-                ),
-                widget.Sep(
-                    linewidth=0,
-                    foreground=colors[2],
-                    padding=10,
-                    size_percent=50,
-                ),
-                widget.TextBox(
-                    text="",
-                    foreground=colors[0],
-                    background=colors[14],
-                    fontsize=14,
-                    padding=0,
-                ),
-                widget.TextBox(
-                        text="",
-                        foreground=colors[7],
-                        background=colors[0],
-                        font="Font Awesome 6 Free",
-                        fontsize=13,
-                        ),
-                widget.WindowCount(
-                        foreground=colors[7],
-                        background=colors[0],),
-                widget.TextBox(
-                    text="",
-                    foreground=colors[0],
-                    background=colors[14],
-                    fontsize=14,
-                    padding=0,
-                ),
-                widget.Sep(
-                    linewidth=0,
-                    foreground=colors[2],
-                    padding=10,
-                    size_percent=50,
-                ),
-                widget.TextBox(
-                    text="",
-                    font="Font Awesome 6 Free",
-                    foreground=colors[1],
-                    ),
+                        text=" ",
+                        foreground=colors[1],
+                       font="Font Awesome 6 Free",
+                       fontsize=12,
+                         ),
                 widget.WindowName(
                     foreground=colors[1],
                     empty_group_string="Desktop",
-                    max_chars=130,
                     ),
                 widget.Systray(),
                 widget.Sep(
-                    linewidth=0,
-                    foreground=colors[2],
+                    linewidth=2,
+                    foreground=colors[0],
                     padding=10,
                     size_percent=50,
                 ),
                 widget.TextBox(
-                    text="",
+                    text="",
+                    foreground=colors[7],
+                    font="Font Awesome 6 Free",
+                    fontsize=16,
+                    ),
+                widget.Memory(
+                        foreground=colors[7],
+                        ),
+                widget.Sep(
+                    linewidth=2,
                     foreground=colors[0],
-                    background=colors[14],
-                    fontsize=14,
-                    padding=0,
+                    padding=10,
+                    size_percent=50,
+                ),
+                widget.TextBox(
+                    text="",
+                    font="Font Awesome 6 Free Solid",
+                    foreground=colors[3],
+                    fontsize=12,
+                ),
+                widget.ThermalSensor(
+                        foreground=colors[3],
+                        ),
+                widget.Sep(
+                    linewidth=2,
+                    foreground=colors[0],
+                    padding=10,
+                    size_percent=50,
                 ),
                 widget.TextBox(
                     text=" ",
                     font="Font Awesome 6 Free Solid",
                     foreground=colors[5],  # fontsize=38
-                    background=colors[0],
+                    fontsize=12,
                 ),
                 widget.Clock(
                     format="%a, %b %d",
-                    background=colors[0],
                     foreground=colors[5],
                 ),
-                widget.TextBox(
-                    text="",
-                    foreground=colors[0],
-                    background=colors[14],
-                    fontsize=14,
-                    padding=0,
-                ),
                 widget.Sep(
-                    linewidth=0,
-                    foreground=colors[2],
+                    linewidth=2,
+                    foreground=colors[0],
                     padding=10,
                     size_percent=50,
                 ),
                 widget.TextBox(
-                    text="",
-                    foreground=colors[0],
-                    background=colors[14],
-                    fontsize=14,
-                    padding=0,
-                ),
-                widget.TextBox(
-                    text=" ",
+                    text="",
                     font="Font Awesome 6 Free Solid",
-                    foreground=colors[13],  # fontsize=38
-                    background=colors[0],
+                    foreground=colors[12],  # fontsize=38
+                    fontsize=12,
                 ),
                 widget.Clock(
-                    format="%I:%M %p",
-                    foreground=colors[13],
-                    background=colors[0],
-                ),
-                widget.TextBox(
-                    text="",
-                    foreground=colors[0],
-                    background=colors[14],
-                    fontsize=14,
-                    padding=0,
-                ),
+                        format="%I:%M %p",
+                        foreground=colors[12],
+                        ),
                 widget.Sep(
-                    linewidth=0,
-                    foreground=colors[2],
+                    linewidth=2,
+                    foreground=colors[0],
                     padding=10,
                     size_percent=50,
-                ),
-                widget.TextBox(
-                    text="",
-                    foreground=colors[0],
-                    background=colors[14],
-                    fontsize=14,
-                    padding=0,
                 ),
                 widget.TextBox(
                     text="",
                     font="Font Awesome 6 Free",
                     fontsize=12,
                     foreground=colors[4],
-                    background=colors[0],
                     ),
                 widget.Battery(
                     foreground=colors[4],
-                    background=colors[0],
                     format="{percent:2.0%}",
                     ),
-                widget.TextBox(
-                    text="",
+                widget.Sep(
+                    linewidth=2,
                     foreground=colors[0],
-                    background=colors[14],
-                    fontsize=14,
-                    padding=0,
+                    padding=10,
+                    size_percent=50,
                 )
             ],
             40,
-            margin=[0, 0, 21, 0],
-            border_width=[0, 0, 3, 0],
-            border_color="#3b4252",
+            margin=[30, 20, 0, 20],
         ),
     ),
 ]
