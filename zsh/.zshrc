@@ -523,6 +523,8 @@ alias twfeedback="t fe1226d4"  # taskwarrior feedback task
 alias flog="t 5b343cc0"
 alias ls="exa --icons"
 
+export NNN_BMS="n:$HOME/notes;c:$HOME/.config;D:$HOME/Downloads/"
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
