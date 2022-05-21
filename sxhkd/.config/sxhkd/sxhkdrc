@@ -2,6 +2,9 @@
 super + Return
 	alacritty
 
+# file manager
+super + f 
+    thunar
 # program launcher
 super + e
     $HOME/.config/rofi/launchers/ribbon/launcher.sh

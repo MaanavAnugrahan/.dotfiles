@@ -1,32 +1,29 @@
 return require('packer').startup(function()
 use 'sainnhe/gruvbox-material'
 use 'renerocksai/telekasten.nvim'
+use 'tribela/vim-transparent'
 -- Lua
 use {
   "folke/which-key.nvim",
   config = function()
     require("which-key").setup {
-      -- your configuration comes here
-      -- or leave it empty to use the default settings
-      -- refer to the configuration section below
     }
   end
 }
+-- use 'dracula/vim'
 use 'lervag/vimtex'
 use 'norcalli/nvim-colorizer.lua'
 use 'renerocksai/calendar-vim'
 use 'wbthomason/packer.nvim'
-use { "ellisonleao/gruvbox.nvim" }
 use {
   'nvim-lualine/lualine.nvim',
   requires = { 'kyazdani42/nvim-web-devicons', opt = true }
 }
 use {'akinsho/bufferline.nvim', tag = "*", requires = 'kyazdani42/nvim-web-devicons'}
-use 'Mofiqul/dracula.nvim'
-use({
-	"catppuccin/nvim",
-	as = "catppuccin"
-})
+-- use({
+-- 	"catppuccin/nvim",
+-- 	as = "catppuccin"
+-- })
 use 'nvim-lua/plenary.nvim'
 use 'nvim-telescope/telescope.nvim'
 use {
@@ -35,9 +32,8 @@ use {
       'kyazdani42/nvim-web-devicons', -- optional, for file icon
     }
 }
-use "tribela/vim-transparent"
-use 'shaunsingh/nord.nvim'
-use "EdenEast/nightfox.nvim"
+-- use 'shaunsingh/nord.nvim'
+-- use "EdenEast/nightfox.nvim"
 use "neovim/nvim-lspconfig"
 use "williamboman/nvim-lsp-installer"
   -- cmp plugins
