@@ -1,5 +1,6 @@
 return require('packer').startup(function()
 use 'sainnhe/gruvbox-material'
+use 'xiyaowong/nvim-transparent'
 use 'renerocksai/telekasten.nvim'
 use 'tribela/vim-transparent'
 -- Lua

@@ -5,9 +5,10 @@ pgrep -x sxhkd > /dev/null || sxhkd &
 nitrogen --restore &
 picom --experimental-backends -b &
 dunst &
+lxsession &
 # nm-applet &
 
-bspc monitor -d I II III IV V VI 
+bspc monitor -d 1 2 3 4 5 6 7 8 9 
 
 bspc config focus_follows_pointer true
 bspc config border_width         3
