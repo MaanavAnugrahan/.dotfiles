@@ -1,14 +1,15 @@
 require 'settings'
 require 'plugins'
 require 'plugins.nvim-tree'
-require 'plugins.lualine'
 require 'plugins.bufferline'
 require 'plugins.telekasten'
+require 'plugins.lualine'
+require 'plugins.vimtex'
+require 'plugins.vim-markdown'
 require 'colors.gruvbox'
 require 'mappings'
 require 'lsp'
 require 'lsp.cmp'
-require'colorizer'.setup()
 require("transparent").setup({
   enable = true, -- boolean: enable transparent
   extra_groups = { -- table/string: additional groups that should be cleared
@@ -24,3 +25,5 @@ require("transparent").setup({
   },
   exclude = {}, -- table: groups you don't want to clear
 })
+require('gitsigns').setup()
+

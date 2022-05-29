@@ -77,6 +77,7 @@ keymap("n", "<leader>zf", ":Telekasten find_notes<CR>", opts)
 keymap("n", "<leader>zi", ":Telekasten insert_link<CR>", opts)
 keymap("n", "<leader>zn", ":Telekasten new_note<CR>", opts)
 keymap("n", "<leader>t", ":Telekasten show_tags<CR>", opts)
+keymap("n", "<leader>p", ":lua require('nabla').popup()<CR>", opts)
 -- NvimTree - the file tree for neovim written in lua --
 keymap("n", "<leader>nt", ":NvimTreeToggle<CR>", opts)
 keymap("n", "<leader>nf", ":NvimTreeFindFile<CR>", opts)

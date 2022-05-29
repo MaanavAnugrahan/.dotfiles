@@ -1,8 +1,13 @@
 return require('packer').startup(function()
+use 'tribela/vim-transparent'
+use {
+  'lewis6991/gitsigns.nvim',
+  -- tag = 'release' -- To use the latest release
+}
+use 'jbyuki/nabla.nvim'
 use 'sainnhe/gruvbox-material'
 use 'xiyaowong/nvim-transparent'
 use 'renerocksai/telekasten.nvim'
-use 'tribela/vim-transparent'
 -- Lua
 use {
   "folke/which-key.nvim",

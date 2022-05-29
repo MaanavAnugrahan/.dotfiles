@@ -1,8 +1,8 @@
+# Imports
 import os
 import subprocess
 from typing import List  # noqa: F401
 import psutil
-
 from libqtile.config import (
     Key,
     Screen,
@@ -20,8 +20,9 @@ from qtile_extras import widget
 from qtile_extras.widget.decorations import BorderDecoration
 from qtile_extras.widget.decorations import RectDecoration
 
+# Variables
 mod = "mod4"
-terminal = "alacritty"
+terminal = "kitty"
 
 keys = [
     # The essential hotkeys
@@ -232,7 +233,7 @@ layout_theme = {
     "margin": 14,
     "border_focus": "#b16286",
     "border_normal": "#282828",
-    "font": "Iosevka Nerd Font",
+    "font": "Humrit Nerd Font",
     "grow_amount": 2,
 }
 
@@ -265,8 +266,8 @@ layouts = [
 
 
 widget_defaults = dict(
-    font="Iosevka Nerd Font",
-    fontsize=9,
+    font="Hurmit Nerd Font",
+    fontsize=8,
     padding=3,
     background=colors[0],
 )
@@ -295,7 +296,7 @@ screens = [
                 ),
                 widget.GroupBox(
                     font="Font Awesome 6 Free",
-                    fontsize=13,
+                    fontsize=10,
                     **group_box_settings,
                     ),
                 widget.Sep(
@@ -401,7 +402,6 @@ screens = [
                 )
             ],
             40,
-            margin=[30, 20, 0, 20],
         ),
     ),
 ]
@@ -441,7 +441,7 @@ auto_minimize = True
 # When using the Wayland backend, this can be used to configure input devices.
 wl_input_rules = None
 
-# Autostart scripts
+# Autostart script
 @hook.subscribe.startup_once
 def start_once():
     home = os.path.expanduser("~")

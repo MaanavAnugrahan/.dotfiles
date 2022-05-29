@@ -1,4 +1,4 @@
-local home = vim.fn.expand("~/notes")
+local home = vim.fn.expand("~/n")
 -- NOTE for Windows users:
 -- - don't use Windows
 -- - try WSL2 on Windows and pretend you're on Linux
@@ -16,8 +16,8 @@ require('telekasten').setup({
     auto_set_filetype = true,
 
     -- dir names for special notes (absolute path or subdir name)
-    dailies      = home .. '/' .. 'daily',
-    weeklies     = home .. '/' .. 'weekly',
+    dailies      = home .. '/' .. 'time/daily',
+    weeklies     = home .. '/' .. 'time/weekly',
     templates    = home .. '/' .. 'templates',
 
     -- image (sub)dir for pasting
